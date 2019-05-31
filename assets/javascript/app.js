@@ -7,19 +7,13 @@
 
     
     var APIkey = "PEPbI49PftvjugqJC7Wq44C4tdprWbSv"
-    
-    // $.ajax({
-    //   url: queryURL,
-    //   method: "GET"
-    // }).then(function(response) {
-    //   console.log(response);
-    // });
   
-    // $("btn").on("click", function() {
+     $("button").on("click", function() {
       // var nameOfShow = $(this).attr("data-nameOfShow");
       var limit = 10;
       var q = "psych";
-      var queryURL = `https://api.giphy.com/v1/gifs/search?api_key=PEPbI49PftvjugqJC7Wq44C4tdprWbSv&q=${q}&limit=10&offset=0&rating=G&lang=en`;
+      var rating = "g"
+      var queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${APIkey}&q=${q}&limit=${limit}&offset=0&rating=${rating}&lang=en`;
 
         $.ajax({
           url: queryURL,
@@ -39,6 +33,7 @@
               gifDiv.append(showImage);
               $(".gifs-section").prepend(gifDiv);
             }
+          });
           });
     
      
