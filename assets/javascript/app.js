@@ -5,16 +5,41 @@
 //limit: integer (int32):The maximum number of records to return.
 //rating: string Filters results by specified rating.
 
-
-    // Example queryURL for Giphy API
     
-    var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC";
     var APIkey = "PEPbI49PftvjugqJC7Wq44C4tdprWbSv"
     
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function(response) {
-      console.log(response);
-    });
+    // $.ajax({
+    //   url: queryURL,
+    //   method: "GET"
+    // }).then(function(response) {
+    //   console.log(response);
+    // });
   
+    // $("btn").on("click", function() {
+      // var nameOfShow = $(this).attr("data-nameOfShow");
+      var limit = 10;
+      var q = "psych";
+      var queryURL = `https://api.giphy.com/v1/gifs/search?api_key=PEPbI49PftvjugqJC7Wq44C4tdprWbSv&q=${q}&limit=10&offset=0&rating=G&lang=en`;
+
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).then(function(response) {
+          console.log(response);
+       
+          var results = response.data;
+
+            for (var i = 0; i < results.length; i++) {
+              var gifDiv = $("<div>");
+              var rating = results[i].rating;
+              var p = $("<p>").text("Rating: " + rating);
+              var showImage = $("<img>");
+              showImage.attr("src", results[i].images.fixed_height.url);
+              gifDiv.append(p);
+              gifDiv.append(showImage);
+              $(".gifs-section").prepend(gifDiv);
+            }
+          });
+    
+     
+
