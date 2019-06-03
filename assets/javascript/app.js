@@ -7,7 +7,8 @@ $(document).ready(function() {
 
 const showList = ["Psych", "Friends", "The Great British Baking Show", "Charmed", "Game of Thrones", "Futurama", "The Good Place", "Grey's Anatomy", "That 70's Show", "Cosmos: a Spacetime Odyssey"];
 var APIkey = "PEPbI49PftvjugqJC7Wq44C4tdprWbSv"
-var q = showList; 
+var q;
+//empty variable, can be defined later 
 
 //adds the buttons for the default shows 
 
@@ -17,9 +18,9 @@ function buttonGenerator () {
 
         var newDivShow = $("<button>").text(showList[i]);
         newDivShow.addClass("btn btn-dark btn-md");
-        newDivShow.attr(`data-showName+${showList[i]}`);
+        newDivShow.attr(`data-showName`, showList[i]);
         $('#button-group').append(newDivShow);
-        console.log(showList[i])
+        // console.log(showList[i])
        
         
         ; }
@@ -31,17 +32,19 @@ buttonGenerator ();
 //performs the API query when a button is pressed, still working on having each search be what is actually in the button text
 $("button").on("click", function() {
       var limit = 10;
-      
+      q = $(this).attr("data-showName");
+    console.log($(this).attr("data-showName"));
       var rating = "g"
       var queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${APIkey}&q=${q}&limit=${limit}&offset=0&rating=${rating}&lang=en`;
-      // var button = $("<button>");
-
+      
+//styling - need to make gifs appear next to each other
         $.ajax({
           url: queryURL,
           method: "GET"
         }).then(function(response) {
-          console.log(response);
-       
+         
+          $(".gifs-section").empty();
+
           var results = response.data;
 
             for (var j = 0; j < results.length; j++) {
@@ -54,10 +57,13 @@ $("button").on("click", function() {
              
               gifDiv.append(p);
               gifDiv.append(showImage);
-              $(".gifs-section").prepend(gifDiv);
+              $(".gifs-section").append(gifDiv);
+              
             }
           });
           });
+
+  //
 });
     
      
